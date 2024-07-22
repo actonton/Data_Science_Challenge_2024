@@ -41,6 +41,7 @@ str(le_df)
 ```{r}
 # Checking the summary of the data
 summary(le_df)
+hist(le_df$Year)
 ```
 
 ```{r}
