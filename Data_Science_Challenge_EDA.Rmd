@@ -3,10 +3,50 @@ title: "Data_Science_Challenge_EDA"
 author: "Aldwin Arambulo"
 date: "2024-07-22"
 output: html_document
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, Warning = FALSE, message = FALSE)
 ```
 
+```{r}
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(rmarkdown)
+
+```
+
+
 ## EDA
+
+```{r}
+# Loading the data
+le_df <- read_csv("data/life-expectancy.csv")
+paged_table(le_df)
+```
+
+```{r}
+# Checking the dimensions of the data
+dim(le_df)
+```
+
+```{r}
+# Checking the structure of the data
+str(le_df)
+```
+
+```{r}
+# Checking the summary of the data
+summary(le_df)
+```
+
+```{r}
+# Remove rows with missing values
+missing_vals_le_df <- le_df %>% drop_na()
+dim(missing_vals_le_df)
+```
+
+
