@@ -6,7 +6,7 @@ life_expectancy$Entity[life_expectancy$Entity == "Congo"] <- "Republic of Congo"
 life_expectancy_2020 = subset(life_expectancy, Year=='2020')
 
 library(tidyverse)
-library(magick)
+library(gganimate)
 
 world_map = subset(map_data("world"), region != "Antarctica")
 ggplot() +
