@@ -1,0 +1,13 @@
+life_expectancy = read.csv("data/life-expectancy.csv")
+colnames(life_expectancy)[4] <- "Life_Expectancy"
+life_expectancy_2020 = subset(life_expectancy, Year=='2020')
+
+library(tidyverse)
+library(magick)
+
+world_map = map_data("world")
+ggplot() +
+  geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+               fill = "grey", alpha = 0.3) +
+  geom_map(map = world_map, data = life_expectancy, aes(map_id=Entity, fill=Life_Expectancy)) +
+  scale_colour_viridis() + theme_minimal()
