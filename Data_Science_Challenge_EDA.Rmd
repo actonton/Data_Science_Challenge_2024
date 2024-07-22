@@ -56,3 +56,9 @@ missing_entity_codes <- le_df %>% filter(is.na(Code)) %>%
 missing_entity_codes
 ```
 
+# Notes
+
+- There is an entity `World` which I'm guessing is the overall population
+- There are multiple entities with missing `Code` values as seen above
+
+We need to decide what time period we should focus on.  Some countries have stats earlier than 1950.  Most countries start from 1950 so I reckon we can focus on that time period onwards.
