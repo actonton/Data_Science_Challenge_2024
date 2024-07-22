@@ -1,0 +1,12 @@
+---
+title: "Data_Science_Challenge_EDA"
+author: "Aldwin Arambulo"
+date: "2024-07-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, Warning = FALSE, message = FALSE)
+```
+
+## EDA
