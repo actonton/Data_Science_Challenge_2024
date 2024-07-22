@@ -49,4 +49,10 @@ missing_vals_le_df <- le_df %>% drop_na()
 dim(missing_vals_le_df)
 ```
 
+```{r}
+# Checking for entities with missing Code values
+missing_entity_codes <- le_df %>% filter(is.na(Code)) %>% 
+  select(Entity) %>% distinct()
+missing_entity_codes
+```
 
