@@ -56,6 +56,31 @@ missing_entity_codes <- le_df %>% filter(is.na(Code)) %>%
 missing_entity_codes
 ```
 
+
+
+```{r}
+# create a world heatmap with the life expectancy of each country
+colnames(le_df)[4] <- "Life_Expectancy"
+le_df$Entity[le_df$Entity == "United States"] <- "USA"
+le_df$Entity[le_df$Entity == "Democratic Republic of Congo"] <- "Democratic Republic of the Congo"
+le_df$Entity[le_df$Entity == "Congo"] <- "Republic of Congo"
+life_expectancy_2020 = subset(le_df, Year=='2020')
+
+library(tidyverse)
+library(magick)
+
+world_map = subset(map_data("world"), region != "Antarctica")
+ggplot() +
+  geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+               fill = "grey", alpha = 0.3) +
+  geom_map(map = world_map, data = life_expectancy_2020, aes(map_id=Entity, fill=Life_Expectancy)) +
+  scale_fill_gradient(low = "#cc4c02", high = "#fff7bc", name = "Life Expectancy") + theme_void() + coord_fixed(1.2)
+```
+
+
+
+
+
 # Notes
 
 - There is an entity `World` which I'm guessing is the overall population
