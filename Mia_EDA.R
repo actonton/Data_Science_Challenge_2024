@@ -10,5 +10,5 @@ world_map = map_data("world")
 ggplot() +
   geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
                fill = "grey", alpha = 0.3) +
-  geom_map(map = world_map, data = life_expectancy, aes(map_id=Entity, fill=Life_Expectancy)) +
-  scale_colour_viridis() + theme_minimal()
+  geom_map(map = world_map, data = life_expectancy_2020, aes(map_id=Entity, fill=Life_Expectancy)) +
+  scale_fill_gradient(low = "#cc4c02", high = "#fff7bc", name = "Life Expectancy") + theme_minimal()
