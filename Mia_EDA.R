@@ -1,5 +1,6 @@
 life_expectancy = read.csv("data/life-expectancy.csv")
 colnames(life_expectancy)[4] <- "Life_Expectancy"
+life_expectancy$Entity[life_expectancy$Entity == "United States"] <- "USA"
 life_expectancy_2020 = subset(life_expectancy, Year=='2020')
 
 library(tidyverse)
