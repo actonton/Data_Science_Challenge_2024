@@ -18,12 +18,12 @@ while (i <= max(as.numeric(life_expectancy$Year))) {
     scale_fill_gradient(low = "#ee4c02", high = "#fcf7ec", name = "Life Expectancy",
                         limits = c(min(life_expectancy$Life_Expectancy), max(life_expectancy$Life_Expectancy))) +
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) + theme(plot.title=element_text(hjust=0.5))
-  filename = paste("plots/",toString(i),".png",sep="")
+  filename = paste("plotsLE/",toString(i),".png",sep="")
   ggsave(filename,p)
   i = i+1
 }
 
-png_files <- list.files("plots",
+png_files <- list.files("plotsLE",
                         pattern = "\\.png$",
                         recursive = FALSE,
                         all.files = FALSE,
