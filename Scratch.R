@@ -34,7 +34,7 @@ p <- le_clean %>%
   labs(title = "World Life Expectancy by Year",
        x = "Year",
        y = "Life Expectancy at Birth (years)")
-ggplotly(p)
+#ggplotly(p)
 
 ## Split by development status
 
@@ -190,7 +190,7 @@ png_files %>%
 
 #HIB
 
-i = 1950
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -218,7 +218,7 @@ png_files %>%
 
 #IPV
 
-i = 1950
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -246,7 +246,7 @@ png_files %>%
 
 #MCV
 
-i = 1950
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -274,7 +274,7 @@ png_files %>%
 
 #PCV
 
-i = 1950
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -302,7 +302,7 @@ png_files %>%
 
 #POL
 
-i = 1950
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -330,7 +330,7 @@ png_files %>%
 
 #RCV
 
-i = 1950
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -358,7 +358,7 @@ png_files %>%
 
 #ROTA
 
-i = 1950
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -386,7 +386,7 @@ png_files %>%
 
 #YTV
 
-i = 1950
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -414,7 +414,7 @@ png_files %>%
 
 #DTP
 
-i = 1950
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
