@@ -1,0 +1,29 @@
+---
+title: "![](imgs/Winter_Data_Science_Challenge_2024_banner.png)"
+author: "Aldwin Arambulo (SID 510575452), Mia Childers (SID 510414892), Mu-Wei Chung (SID 510611635)"
+format: 
+  html: 
+    self-contained: true 
+    fig-cap-location: bottom
+    page-layout: full
+    code-fold: false 
+    code-tools: true 
+    code-line-numbers: true 
+    df-print: paged 
+    theme: superhero 
+table-of-contents: false 
+---
+
+::: panel-tabset
+
+# Executive Summary
+
+# Background
+
+# Data
+
+# Vaccine Impact
+
+:::
+
+# References
