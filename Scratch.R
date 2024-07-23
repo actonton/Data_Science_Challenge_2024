@@ -134,7 +134,7 @@ world_map$region[world_map$region == "Trinidad"] <- "Trinidad and Tobago"
 
 #BCG
 
-i = 1950
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
