@@ -3,7 +3,6 @@ colnames(life_expectancy)[4] <- "Life_Expectancy"
 life_expectancy$Entity[life_expectancy$Entity == "United States"] <- "USA"
 life_expectancy$Entity[life_expectancy$Entity == "Democratic Republic of Congo"] <- "Democratic Republic of the Congo"
 life_expectancy$Entity[life_expectancy$Entity == "Congo"] <- "Republic of Congo"
-life_expectancy_2020 = subset(life_expectancy, Year=='2020')
 
 library(tidyverse)
 library(magick)
