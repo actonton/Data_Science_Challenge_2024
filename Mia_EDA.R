@@ -1,13 +1,17 @@
 life_expectancy = read.csv("data/life-expectancy.csv")
 colnames(life_expectancy)[4] <- "Life_Expectancy"
-life_expectancy$Entity[life_expectancy$Entity == "United States"] <- "USA"
-life_expectancy$Entity[life_expectancy$Entity == "Democratic Republic of Congo"] <- "Democratic Republic of the Congo"
-life_expectancy$Entity[life_expectancy$Entity == "Congo"] <- "Republic of Congo"
 
 library(tidyverse)
 library(magick)
 
 world_map = subset(map_data("world"), region != "Antarctica")
+world_map$region[world_map$region == "USA"] <- "United States"
+world_map$region[world_map$region == "USA"] <- "United Kingdom"
+world_map$region[world_map$region == "Democratic Republic of the Congo"] <- "Democratic Republic of Congo"
+world_map$region[world_map$region == "Republic of Congo"] <- "Congo"
+world_map$region[world_map$region == "Ivory Coast"] <- "Cote d'Ivoire"
+world_map$region[world_map$region == "Czech Republic"] <- "Czechia"
+world_map$region[world_map$region == "Trinidad"] <- "Trinidad and Tobago"
 
 i = 1950
 while (i <= max(as.numeric(life_expectancy$Year))) {
@@ -32,7 +36,7 @@ png_files %>%
   map(image_read) %>% # reads each path file
   image_join() %>% # joins image
   image_animate(fps = 5) %>% # animates
-  image_write("All_plots.gif")
+  image_write("LE.gif")
 
 'ggplot() +
   geom_polygon(data = world_map, aes(x = long, y = lat, group = group),

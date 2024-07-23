@@ -123,9 +123,19 @@ suppressWarnings(animate(p_vac+transition_time(year)))
 library(magick)
 
 world_map = subset(map_data("world"), region != "Antarctica")
+#standardise world map country names with OWID names
+world_map$region[world_map$region == "USA"] <- "United States"
+world_map$region[world_map$region == "USA"] <- "United Kingdom"
+world_map$region[world_map$region == "Democratic Republic of the Congo"] <- "Democratic Republic of Congo"
+world_map$region[world_map$region == "Republic of Congo"] <- "Congo"
+world_map$region[world_map$region == "Ivory Coast"] <- "Cote d'Ivoire"
+world_map$region[world_map$region == "Czech Republic"] <- "Czechia"
+world_map$region[world_map$region == "Trinidad"] <- "Trinidad and Tobago"
+
+#BCG
 
 i = 1950
-while (i <= max(as.numeric(vaccination_clean$Year))) {
+while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
                  fill = "grey", alpha = 0.3) +
@@ -135,18 +145,304 @@ while (i <= max(as.numeric(vaccination_clean$Year))) {
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
     labs(subtitle="% 1 Year Olds Immunised with BCG (Against TB)") +
     theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
-  filename = paste("plotsLE/",toString(i),".png",sep="")
+  filename = paste("plotsVaxBCG/",toString(i),".png",sep="")
   ggsave(filename,p)
   i = i+1
 }
-
-png_files <- list.files("plotsLE",
+png_files <- list.files("plotsVaxBCG",
                         pattern = "\\.png$",
                         recursive = FALSE,
                         all.files = FALSE,
                         full.names = TRUE)
 png_files %>%
-  map(image_read) %>% # reads each path file
-  image_join() %>% # joins image
-  image_animate(fps = 5) %>% # animates
-  image_write("All_plots.gif")
+  map(image_read) %>%
+  image_join() %>%
+  image_animate(fps = 5) %>%
+  image_write("BCG.gif")
+
+#HEP
+
+i = 1980
+while (i <= max(as.numeric(vaccination_clean$year))) {
+  p = ggplot() +
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+                 fill = "grey", alpha = 0.3) +
+    geom_map(map = world_map, data = subset(vaccination_clean, year==toString(i)), aes(map_id=entity, fill=hep_b3_percent_of_one_year_olds_immunized)) +
+    scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
+                        limits = c(0, 100)) +
+    theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
+    labs(subtitle="% 1 Year Olds Immunised against Hepatitis B3") +
+    theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
+  filename = paste("plotsVaxHEP/",toString(i),".png",sep="")
+  ggsave(filename,p)
+  i = i+1
+}
+png_files <- list.files("plotsVaxHEP",
+                        pattern = "\\.png$",
+                        recursive = FALSE,
+                        all.files = FALSE,
+                        full.names = TRUE)
+png_files %>%
+  map(image_read) %>%
+  image_join() %>%
+  image_animate(fps = 5) %>%
+  image_write("HEP.gif")
+
+#HIB
+
+i = 1950
+while (i <= max(as.numeric(vaccination_clean$year))) {
+  p = ggplot() +
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+                 fill = "grey", alpha = 0.3) +
+    geom_map(map = world_map, data = subset(vaccination_clean, year==toString(i)), aes(map_id=entity, fill=hib3_percent_of_one_year_olds_immunized)) +
+    scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
+                        limits = c(0, 100)) +
+    theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
+    labs(subtitle="% 1 Year Olds Immunised with Haemophilus Influenza B") +
+    theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
+  filename = paste("plotsVaxHIB/",toString(i),".png",sep="")
+  ggsave(filename,p)
+  i = i+1
+}
+png_files <- list.files("plotsVaxHIB",
+                        pattern = "\\.png$",
+                        recursive = FALSE,
+                        all.files = FALSE,
+                        full.names = TRUE)
+png_files %>%
+  map(image_read) %>%
+  image_join() %>%
+  image_animate(fps = 5) %>%
+  image_write("HIB.gif")
+
+#IPV
+
+i = 1950
+while (i <= max(as.numeric(vaccination_clean$year))) {
+  p = ggplot() +
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+                 fill = "grey", alpha = 0.3) +
+    geom_map(map = world_map, data = subset(vaccination_clean, year==toString(i)), aes(map_id=entity, fill=ipv1_percent_of_one_year_olds_immunized)) +
+    scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
+                        limits = c(0, 100)) +
+    theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
+    labs(subtitle="% 1 Year Olds Immunised with Salk (against Polio)") +
+    theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
+  filename = paste("plotsVaxIPV/",toString(i),".png",sep="")
+  ggsave(filename,p)
+  i = i+1
+}
+png_files <- list.files("plotsVaxIPV",
+                        pattern = "\\.png$",
+                        recursive = FALSE,
+                        all.files = FALSE,
+                        full.names = TRUE)
+png_files %>%
+  map(image_read) %>%
+  image_join() %>%
+  image_animate(fps = 5) %>%
+  image_write("IPV.gif")
+
+#MCV
+
+i = 1950
+while (i <= max(as.numeric(vaccination_clean$year))) {
+  p = ggplot() +
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+                 fill = "grey", alpha = 0.3) +
+    geom_map(map = world_map, data = subset(vaccination_clean, year==toString(i)), aes(map_id=entity, fill=mcv1_percent_of_one_year_olds_immunized)) +
+    scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
+                        limits = c(0, 100)) +
+    theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
+    labs(subtitle="% 1 Year Olds Immunised with against Meningococcal") +
+    theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
+  filename = paste("plotsVaxMCV/",toString(i),".png",sep="")
+  ggsave(filename,p)
+  i = i+1
+}
+png_files <- list.files("plotsVaxMCV",
+                        pattern = "\\.png$",
+                        recursive = FALSE,
+                        all.files = FALSE,
+                        full.names = TRUE)
+png_files %>%
+  map(image_read) %>%
+  image_join() %>%
+  image_animate(fps = 5) %>%
+  image_write("MCV.gif")
+
+#PCV
+
+i = 1950
+while (i <= max(as.numeric(vaccination_clean$year))) {
+  p = ggplot() +
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+                 fill = "grey", alpha = 0.3) +
+    geom_map(map = world_map, data = subset(vaccination_clean, year==toString(i)), aes(map_id=entity, fill=pcv3_percent_of_one_year_olds_immunized)) +
+    scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
+                        limits = c(0, 100)) +
+    theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
+    labs(subtitle="% 1 Year Olds Immunised against Pneumococcal") +
+    theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
+  filename = paste("plotsVaxPCV/",toString(i),".png",sep="")
+  ggsave(filename,p)
+  i = i+1
+}
+png_files <- list.files("plotsVaxPCV",
+                        pattern = "\\.png$",
+                        recursive = FALSE,
+                        all.files = FALSE,
+                        full.names = TRUE)
+png_files %>%
+  map(image_read) %>%
+  image_join() %>%
+  image_animate(fps = 5) %>%
+  image_write("PCV.gif")
+
+#POL
+
+i = 1950
+while (i <= max(as.numeric(vaccination_clean$year))) {
+  p = ggplot() +
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+                 fill = "grey", alpha = 0.3) +
+    geom_map(map = world_map, data = subset(vaccination_clean, year==toString(i)), aes(map_id=entity, fill=pol3_percent_of_one_year_olds_immunized)) +
+    scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
+                        limits = c(0, 100)) +
+    theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
+    labs(subtitle="% 1 Year Olds Immunised against Polio") +
+    theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
+  filename = paste("plotsVaxPOL/",toString(i),".png",sep="")
+  ggsave(filename,p)
+  i = i+1
+}
+png_files <- list.files("plotsVaxPOL",
+                        pattern = "\\.png$",
+                        recursive = FALSE,
+                        all.files = FALSE,
+                        full.names = TRUE)
+png_files %>%
+  map(image_read) %>%
+  image_join() %>%
+  image_animate(fps = 5) %>%
+  image_write("POL.gif")
+
+#RCV
+
+i = 1950
+while (i <= max(as.numeric(vaccination_clean$year))) {
+  p = ggplot() +
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+                 fill = "grey", alpha = 0.3) +
+    geom_map(map = world_map, data = subset(vaccination_clean, year==toString(i)), aes(map_id=entity, fill=rcv1_percent_of_one_year_olds_immunized)) +
+    scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
+                        limits = c(0, 100)) +
+    theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
+    labs(subtitle="% 1 Year Olds Immunised with against Rubella") +
+    theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
+  filename = paste("plotsVaxRCV/",toString(i),".png",sep="")
+  ggsave(filename,p)
+  i = i+1
+}
+png_files <- list.files("plotsVaxRCV",
+                        pattern = "\\.png$",
+                        recursive = FALSE,
+                        all.files = FALSE,
+                        full.names = TRUE)
+png_files %>%
+  map(image_read) %>%
+  image_join() %>%
+  image_animate(fps = 5) %>%
+  image_write("RCV.gif")
+
+#ROTA
+
+i = 1950
+while (i <= max(as.numeric(vaccination_clean$year))) {
+  p = ggplot() +
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+                 fill = "grey", alpha = 0.3) +
+    geom_map(map = world_map, data = subset(vaccination_clean, year==toString(i)), aes(map_id=entity, fill=rota_c_percent_of_one_year_olds_immunized)) +
+    scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
+                        limits = c(0, 100)) +
+    theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
+    labs(subtitle="% 1 Year Olds Immunised against Rotavirus") +
+    theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
+  filename = paste("plotsVaxROTA/",toString(i),".png",sep="")
+  ggsave(filename,p)
+  i = i+1
+}
+png_files <- list.files("plotsVaxROTA",
+                        pattern = "\\.png$",
+                        recursive = FALSE,
+                        all.files = FALSE,
+                        full.names = TRUE)
+png_files %>%
+  map(image_read) %>%
+  image_join() %>%
+  image_animate(fps = 5) %>%
+  image_write("ROTA.gif")
+
+#YTV
+
+i = 1950
+while (i <= max(as.numeric(vaccination_clean$year))) {
+  p = ggplot() +
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+                 fill = "grey", alpha = 0.3) +
+    geom_map(map = world_map, data = subset(vaccination_clean, year==toString(i)), aes(map_id=entity, fill=yfv_percent_of_one_year_olds_immunized)) +
+    scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
+                        limits = c(0, 100)) +
+    theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
+    labs(subtitle="% 1 Year Olds Immunised against Yellow Fever") +
+    theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
+  filename = paste("plotsVaxYFV/",toString(i),".png",sep="")
+  ggsave(filename,p)
+  i = i+1
+}
+png_files <- list.files("plotsVaxYFV",
+                        pattern = "\\.png$",
+                        recursive = FALSE,
+                        all.files = FALSE,
+                        full.names = TRUE)
+png_files %>%
+  map(image_read) %>%
+  image_join() %>%
+  image_animate(fps = 5) %>%
+  image_write("YFV.gif")
+
+#DTP
+
+i = 1950
+while (i <= max(as.numeric(vaccination_clean$year))) {
+  p = ggplot() +
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+                 fill = "grey", alpha = 0.3) +
+    geom_map(map = world_map, data = subset(vaccination_clean, year==toString(i)), aes(map_id=entity, fill=dtp3_percent_of_one_year_olds_immunized)) +
+    scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
+                        limits = c(0, 100)) +
+    theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
+    labs(subtitle="% 1 Year Olds Immunised with DTP (against Diphtheria, Pertussis, Tetanus)") +
+    theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
+  filename = paste("plotsVaxDTP/",toString(i),".png",sep="")
+  ggsave(filename,p)
+  i = i+1
+}
+png_files <- list.files("plotsVaxDTP",
+                        pattern = "\\.png$",
+                        recursive = FALSE,
+                        all.files = FALSE,
+                        full.names = TRUE)
+png_files %>%
+  map(image_read) %>%
+  image_join() %>%
+  image_animate(fps = 5) %>%
+  image_write("DTP.gif")
+
+
+
+
+
+
+
