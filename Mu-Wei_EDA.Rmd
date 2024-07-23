@@ -1,0 +1,174 @@
+---
+title: "Life Expectancy by Year"
+author: "Mu-Wei Chung"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(plotly)
+```
+
+# Life Expectancy Dataset
+
+[Life Expectancy](https://ourworldindata.org/life-expectancy#all-charts) dataset from Our World in Data.
+
+```{r}
+le_df <- read_csv("data/life-expectancy.csv")
+glimpse(le_df)
+```
+
+## Cleaning
+
+```{r}
+le_clean <- janitor::clean_names(le_df)
+glimpse(le_clean)
+```
+## Entity
+
+It include countries, continents, world, development status
+
+```{r}
+le_clean %>% pull(entity) %>% unique()
+```
+
+## Missing values
+
+```{r}
+visdat::vis_miss(le_clean)
+```
+
+Which entities are missing codes? 
+
+Continents, Regions by Income and development status
+
+```{r}
+le_clean %>% 
+  filter(is.na(code)) %>% 
+  select(entity) %>% 
+  distinct()
+```
+
+## World Life Expectancy by Year
+
+```{r}
+p <- le_clean %>% 
+  filter(entity == "World") %>% 
+  ggplot(aes(x = year, y = period_life_expectancy_at_birth_sex_all_age_0)) +
+  geom_line() +
+  labs(title = "World Life Expectancy by Year",
+       x = "Year",
+       y = "Life Expectancy at Birth (years)")
+ggplotly(p)
+```
+
+## Split by development status
+
+```{r}
+development_status <- stringr::str_subset(le_clean$entity, "devel") %>% unique()
+
+p <- le_clean %>%
+  filter(entity %in% development_status) %>%
+  ggplot(aes(x = year, 
+             y = period_life_expectancy_at_birth_sex_all_age_0,
+             color = entity)) +
+  geom_line() + 
+  labs(title = "Life Expectancy by Year",
+       x = "Year",
+       y = "Life Expectancy at Birth (years)")
+ggplotly(p)
+```
+
+How many countries have data before 1950?
+
+```{r}
+le_clean %>% drop_na(code) %>%
+  filter(year < 1950) %>% 
+  pull(entity) %>% 
+  unique() %>% 
+  length()
+```
+
+```{r}
+le_clean %>% drop_na(code) %>%
+  filter(year >= 1950) %>% 
+  group_by(entity) %>% 
+  count() %>% 
+  filter(n == 72) %>%
+  pull(entity) %>%
+  unique() %>%
+  length()
+  
+```
+
+```{r}
+le_clean %>% drop_na(code) %>%
+  pull(entity) %>%
+  unique() %>% 
+  length()
+```
+
+
+# Difference in Life Expectancy
+
+Create a new column that calculates the difference in life expectancy from the previous year.
+
+```{r}
+le_clean <- le_clean %>% 
+  group_by(entity) %>% 
+  mutate(diff = c(NA, diff(period_life_expectancy_at_birth_sex_all_age_0))) %>%
+  ungroup()
+```
+
+```{r}
+p <- le_clean %>%
+  filter(entity %in% development_status) %>%
+  drop_na(diff) %>%
+  ggplot(aes(x = year, 
+             y = diff,
+             color = entity)) +
+  geom_line() + 
+  geom_abline(intercept = 0.243, slope = 0, color = "black", linetype = "dotted") +
+  labs(title = "Life Expectancy Diff by Year",
+       x = "Year",
+       y = "Life Expectancy at Birth (years)")
+ggplotly(p)
+```
+
+
+# Global Vaccination Coverage
+
+```{r}
+vaccination_df <- read_csv("data/global-vaccination-coverage.csv")
+vaccination_df %>% glimpse()
+vaccination_clean <- janitor::clean_names(vaccination_df)
+
+vaccination_long <- vaccination_clean %>% 
+  pivot_longer(cols = -c(entity, code, year), 
+               names_to = "vaccine", 
+               values_to = "coverage")
+
+```
+
+```{r}
+visdat::vis_miss(vaccination_long)
+```
+
+```{r}
+WHO_regions <- stringr::str_subset(vaccination_df$Entity, "WHO") %>% unique()
+p_vac <- vaccination_long %>% 
+  filter(entity %in% WHO_regions) %>%
+  ggplot(aes(x = year, y = coverage, color = vaccine)) +
+  geom_line() + geom_point() +
+  facet_wrap(~entity) +
+  labs(title = "Global Vaccination Coverage by Year",
+       x = "Year",
+       y = "Coverage (%)")
+ggplotly(p_vac)
+```
+
