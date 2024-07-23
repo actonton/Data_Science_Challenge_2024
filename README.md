@@ -3,4 +3,4 @@
 Participants:
 - Mia Childers (SID 510414892)
 - Aldwin Arambulo (SID 510575452)
-- Mu-Wei (SID )
+- Mu-Wei Chung (SID 510611635)
