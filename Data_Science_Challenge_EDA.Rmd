@@ -20,7 +20,9 @@ library(rmarkdown)
 ```
 
 
-## EDA
+# EDA
+
+## Life expectancy data
 
 ```{r}
 # Loading the data
@@ -76,6 +78,28 @@ ggplot() +
                fill = "grey", alpha = 0.3) +
   geom_map(map = world_map, data = life_expectancy_2020, aes(map_id=Entity, fill=Life_Expectancy)) +
   scale_fill_gradient(low = "#cc4c02", high = "#fff7bc", name = "Life Expectancy") + theme_void() + coord_fixed(1.2)
+```
+
+## Polio vaccination data
+
+```{r}
+# Loading the data
+polio_df <- read_csv("data/number-of-estimated-paralytic-polio-cases-by-world-region.csv")
+paged_table(polio_df)
+```
+
+
+```{r}
+# Line graph of the number of estimated paralytic polio cases
+estimated_polio_cases <- polio_df %>% 
+  filter(Entity == "World") %>% 
+  ggplot(aes(x = Year, y = `Estimated polio cases`)) +
+  geom_line() +
+  labs(title = "Number of estimated paralytic polio cases by year",
+       x = "Year",
+       y = "Number of estimated paralytic polio cases")
+
+estimated_polio_cases
 ```
 
 
