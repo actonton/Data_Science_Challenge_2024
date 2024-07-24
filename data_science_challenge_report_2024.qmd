@@ -62,13 +62,12 @@ Text here
 
 # Background
 
-This report investigates the impacts of vaccinations amongst the different development regions as we dived into the difference of life expectancy and the global coverage of the vaccination programs.  We used a dataset from OWID (Our World In Data) for vaccination coverage and global life expectancy.  We analysed the trend of the vaccination programs in different regions to deduce the impact of the vaccines and potential life expectancy gains.
+This report investigates the impacts of vaccinations amongst the different development regions as we dived into the difference of life expectancy and the global coverage of the vaccination programs.  We used a dataset from [OWID](https://ourworldindata.org/) (Our World In Data) for vaccination coverage and global life expectancy.  We analysed the trend of the vaccination programs in different regions to deduce the impact of the vaccines and potential life expectancy gains.
 
 
 
 # Data
 
-All of our dataset used were from [OWID](https://ourworldindata.org/) and the main life expectancy dataset given to us.   
 
 
 
