@@ -267,14 +267,16 @@ We focus on the 5 vaccines with coverage rate data since 1980.
 - RCV1: Rubella
 
 ```{r}
+library(dplyr)
 vaccines <- c("BCG", "DTP3", "MCV1", "POL3", "RCV1")
-vaccines_world <- vaccination_clean %>% 
+vaccines_world <- vaccination_clean %>%
   filter(entity == "World") %>%
-  select(bcg, dtp3, mcv1, pol3, rcv1)
+  select(year, bcg, dtp3, mcv1, pol3, rcv1) %>%
+  arrange(year)
 ```
 
 ```{r}
-vaccines_world_ts <- ts(vaccines_world[-1], start = min(vaccines_world$year), end = max(vaccines_world$year))
+vaccines_world_ts <- ts(vaccines_world[, -1], start = min(vaccines_world$year), end = max(vaccines_world$year))
 ```
 
 ```{r}
