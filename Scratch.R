@@ -151,7 +151,7 @@ world_map$region[world_map$region == "Trinidad"] <- "Trinidad and Tobago"
 
 #BCG
 
-i = 1970
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -179,7 +179,7 @@ png_files %>%
 
 #HEP
 
-i = 1970
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -207,7 +207,7 @@ png_files %>%
 
 #HIB
 
-i = 1970
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -235,7 +235,7 @@ png_files %>%
 
 #IPV
 
-i = 1970
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -263,7 +263,7 @@ png_files %>%
 
 #MCV
 
-i = 1970
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -291,7 +291,7 @@ png_files %>%
 
 #PCV
 
-i = 1970
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -319,7 +319,7 @@ png_files %>%
 
 #POL
 
-i = 1970
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -347,7 +347,7 @@ png_files %>%
 
 #RCV
 
-i = 1970
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -375,7 +375,7 @@ png_files %>%
 
 #ROTA
 
-i = 1970
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -403,7 +403,7 @@ png_files %>%
 
 #YTV
 
-i = 1970
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -431,7 +431,7 @@ png_files %>%
 
 #DTP
 
-i = 1970
+i = 1980
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -465,7 +465,74 @@ ggplot() +
 
 
 merged_datasets = merge(vaccination_clean, le_clean, by=c("entity","year"))
+names(merged_datasets)[names(merged_datasets) == 'period_life_expectancy_at_birth_sex_all_age_0'] <- 'life_expectancy'
 
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=bcg_percent_of_one_year_olds_immunized, y=life_expectancy))
 
-linear_model = lm(le_clean$life_expectancy ~ vaccination_clean$'BCG (TB)')
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=hep_b3_percent_of_one_year_olds_immunized, y=life_expectancy))
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=hib3_percent_of_one_year_olds_immunized, y=life_expectancy))
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=ipv1_percent_of_one_year_olds_immunized, y=life_expectancy, color=year)) +
+  theme_bw() +
+  labs(title="Salk (Polio) 1st Dose") + xlab("% 1yos vaccinated") + ylab("Life Expectancy")
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=mcv1_percent_of_one_year_olds_immunized, y=life_expectancy)) +
+  theme_bw() +
+  labs(title="Meningococcal 1st Dose") + xlab("% 1yos vaccinated") + ylab("Life Expectancy")
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=pcv3_percent_of_one_year_olds_immunized, y=life_expectancy))
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=pol3_percent_of_one_year_olds_immunized, y=life_expectancy)) +
+  theme_bw() +
+  labs(title="Polio 3rd Dose") + xlab("% 1yos vaccinated") + ylab("Life Expectancy")
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=rcv1_percent_of_one_year_olds_immunized, y=life_expectancy))
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=rota_c_percent_of_one_year_olds_immunized, y=life_expectancy))
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=yfv_percent_of_one_year_olds_immunized, y=life_expectancy))
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=dtp3_percent_of_one_year_olds_immunized, y=life_expectancy)) +
+  theme_bw() +
+  labs(title="Diphtheria 3rd Dose") + xlab("% 1yos vaccinated") + ylab("Life Expectancy")
+
+cor.test(merged_datasets$life_expectancy, merged_datasets$bcg_percent_of_one_year_olds_immunized) #no
+cor.test(merged_datasets$life_expectancy, merged_datasets$hep_b3_percent_of_one_year_olds_immunized) #no
+cor.test(merged_datasets$life_expectancy, merged_datasets$hib3_percent_of_one_year_olds_immunized) #no
+cor.test(merged_datasets$life_expectancy, merged_datasets$ipv1_percent_of_one_year_olds_immunized) #yes
+cor.test(merged_datasets$life_expectancy, merged_datasets$mcv1_percent_of_one_year_olds_immunized) #yes
+cor.test(merged_datasets$life_expectancy, merged_datasets$pcv3_percent_of_one_year_olds_immunized) #no
+cor.test(merged_datasets$life_expectancy, merged_datasets$pol3_percent_of_one_year_olds_immunized) #yes
+cor.test(merged_datasets$life_expectancy, merged_datasets$rcv1_percent_of_one_year_olds_immunized) #no
+cor.test(merged_datasets$life_expectancy, merged_datasets$rota_c_percent_of_one_year_olds_immunized) #no
+cor.test(merged_datasets$life_expectancy, merged_datasets$yfv_percent_of_one_year_olds_immunized) #no
+cor.test(merged_datasets$life_expectancy, merged_datasets$dtp3_percent_of_one_year_olds_immunized) #yes
+
+linear_model = lm(formula =
+                    life_expectancy ~ ipv1_percent_of_one_year_olds_immunized +
+                    mcv1_percent_of_one_year_olds_immunized +
+                    pol3_percent_of_one_year_olds_immunized, data=merged_datasets)
 

@@ -13,7 +13,7 @@ world_map$region[world_map$region == "Ivory Coast"] <- "Cote d'Ivoire"
 world_map$region[world_map$region == "Czech Republic"] <- "Czechia"
 world_map$region[world_map$region == "Trinidad"] <- "Trinidad and Tobago"
 
-i = 1950
+i = 1980
 while (i <= max(as.numeric(life_expectancy$Year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
