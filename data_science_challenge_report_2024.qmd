@@ -200,7 +200,7 @@ The `auto.arima` function found the best ARIMA model for each group as follows:
 - Less developed regions, excluding least developed countries: ARIMA(2,1,0)
 - More developed regions: ARIMA(0,2,1)
 
-We can also use the `sarima` function to check if the residuals are white noise (no tread), the ACF of residuals are not significant, p-values of Ljung-Box test are greater than 0.05.
+We can also use the `sarima` function to check if the residuals are white noise (no trend), the ACF of residuals are not significant, p-values of Ljung-Box test are greater than 0.05.
 
 ```{r}
 library(astsa)
