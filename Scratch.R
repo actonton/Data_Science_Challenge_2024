@@ -487,7 +487,7 @@ ggplot(data=merged_datasets) +
 
 ggplot(data=merged_datasets) +
   geom_point(aes(
-    x=mcv1_percent_of_one_year_olds_immunized, y=life_expectancy)) +
+    x=mcv1_percent_of_one_year_olds_immunized, y=life_expectancy, color=year)) +
   theme_bw() +
   labs(title="Meningococcal 1st Dose") + xlab("% 1yos vaccinated") + ylab("Life Expectancy")
 
@@ -497,7 +497,7 @@ ggplot(data=merged_datasets) +
 
 ggplot(data=merged_datasets) +
   geom_point(aes(
-    x=pol3_percent_of_one_year_olds_immunized, y=life_expectancy)) +
+    x=pol3_percent_of_one_year_olds_immunized, y=life_expectancy, color=year)) +
   theme_bw() +
   labs(title="Polio 3rd Dose") + xlab("% 1yos vaccinated") + ylab("Life Expectancy")
 
@@ -515,7 +515,7 @@ ggplot(data=merged_datasets) +
 
 ggplot(data=merged_datasets) +
   geom_point(aes(
-    x=dtp3_percent_of_one_year_olds_immunized, y=life_expectancy)) +
+    x=dtp3_percent_of_one_year_olds_immunized, y=life_expectancy, color=year)) +
   theme_bw() +
   labs(title="Diphtheria 3rd Dose") + xlab("% 1yos vaccinated") + ylab("Life Expectancy")
 
