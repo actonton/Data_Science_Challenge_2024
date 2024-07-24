@@ -26,8 +26,9 @@ editor_options:
   chunk_output_type: inline
 ---
 
-################################################
+################################################ 
 
+```{=html}
 <style>
 h1 {
   font-size: 20px;
@@ -42,8 +43,8 @@ h3 {
 }
 }
 </style>
-
-################################################
+```
+################################################ 
 
 ```{r setup}
 #| warning: false
@@ -55,18 +56,13 @@ library(rmarkdown)
 ```
 
 ::: panel-tabset
-
 # Executive Summary
 
 Text here
 
-
-
 # Background
 
-This report investigates the impacts of vaccinations amongst the different development regions as we dived into the difference of life expectancy and the global coverage of the vaccination programs.  We used a dataset from [OWID](https://ourworldindata.org/) (Our World In Data) for vaccination coverage and global life expectancy.  We analysed the trend of the vaccination programs in different regions to deduce the impact of the vaccines and potential life expectancy gains.
-
-
+This report investigates the impacts of vaccinations amongst the different development regions as we dived into the difference of life expectancy and the global coverage of the vaccination programs. We used a dataset from [OWID](https://ourworldindata.org/) (Our World In Data) for vaccination coverage and global life expectancy. We analysed the trend of the vaccination programs in different regions to deduce the impact of the vaccines and potential life expectancy gains.
 
 # Data
 
@@ -102,8 +98,6 @@ vaccination_df %>% paged_table()
 vaccination_clean <- janitor::clean_names(vaccination_df) %>% paged_table()
 vaccination_clean
 ```
-
-
 
 # Impact of vacccination
 
@@ -146,8 +140,108 @@ ggplot(data=merged_datasets) +
 
 ```
 
+# Time Series Analysis and Modelling
+
+In this section, we will perform a time series analysis on the life expectancy data for three [UN development groups](https://population.un.org/wpp/DefinitionOfRegions/#:~:text=More%20developed%20regions%20comprise%20Europe,plus%20Melanesia%2C%20Micronesia%20and%20Polynesia): least developed countries, less developed regions excluding the least developed countries, and more developed regions. The reason for this is due to the fact that the life expectancy are very different between these regions.
+
+```{r}
+development_status <- stringr::str_subset(le_clean$entity, regex("devel", ignore_case = TRUE)) %>% unique()
+
+development_status <- c("Least developed countries", "Less developed regions, excluding least developed countries", "More developed regions")
+
+p <- le_clean %>%
+  filter(entity %in% development_status) %>%
+  ggplot(aes(x = year, 
+             y = period_life_expect,
+             color = entity)) +
+  geom_line() + 
+  labs(title = "Life Expectancy by Year",
+       x = "Year",
+       y = "Life Expectancy at Birth (years)")
+ggplotly(p)
+```
+
+
+## Building ARIMA model
+
+Now, we use `auto.arima` to fit best ARIMA model for each group using life expectancy data from 1950 onward, and then forecast the life expectancy for the next 5 years.
+
+###  Convert dataframes to time series
+
+```{r}
+# create a list of 3 dataframes
+le_dev_ls <- list()
+for (dev in development_status) {
+  le_dev_ls[[dev]] <- le_clean %>% 
+    filter(entity == dev) %>%
+    select(period_life_expect) %>%
+    ts(start = 1950, end = 2021)
+}
+# le_dev_ls
+```
+
+## Fit best ARIMA models
+
+```{r}
+# install.packages("forecast")
+library(forecast)
+le_dev_opt <- list()
+for (dev in development_status) {
+  le_dev_opt[[dev]] <- auto.arima(le_dev_ls[[dev]])
+}
+le_dev_opt
+```
+
+## Validate ARIMA models
+
+The `auto.arima` function found the best ARIMA model for each group as follows:
+
+- Least developed countries: ARIMA(0,1,2)
+- Less developed regions, excluding least developed countries: ARIMA(2,1,0)
+- More developed regions: ARIMA(0,2,1)
+
+We can also use the `sarima` function to check if the residuals are white noise (no tread), the ACF of residuals are not significant, p-values of Ljung-Box test are greater than 0.05.
+
+```{r}
+library(astsa)
+
+sarima(le_dev_ls$`Least developed countries`, 0, 1, 2)
+sarima(le_dev_ls$`Less developed regions, excluding least developed countries`, 2, 1, 0)
+sarima(le_dev_ls$`More developed regions`, 0, 2, 1)
+```
+
+## Forecast the life expectancy for the next 5 years
+
+According to the ARIMA model, the life expectancy of least developed countries and less developed regions are expected to increase in the next 5 years whereas that of more developed regions is expected to decrease. However, the downside of this model is that it assume life expectancy of this year is only dependent on life expectancy in previous years, and does not take into account the external effect such as COVID pandemic since 2019.
+
+
+```{r warning=FALSE}
+p1 <- le_dev_opt$`Least developed countries` %>% 
+  forecast(h = 5) %>% 
+  autoplot() +
+  ggtitle("5 Years Forecast for Least Developed Countries") +
+  xlab("Year") +
+  ylab("Life Expectancy")
+
+p2 <- le_dev_opt$`Less developed regions, excluding least developed countries` %>%
+  forecast(h = 5) %>% 
+  autoplot() +
+  ggtitle("5 Years Forecast for Less Developed Regions (Excluding Least Developed Countries)") +
+  xlab("Year") +
+  ylab("Life Expectancy")
+
+p3 <- le_dev_opt$`More developed regions` %>%
+  forecast(h = 5) %>% 
+  autoplot() +
+  ggtitle("5 Years Forecast for More Developed Regions") +
+  xlab("Year") +
+  ylab("Life Expectancy")
+
+p1
+p2
+p3
+```
+
 :::
 
 # References
-
-
