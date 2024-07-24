@@ -3,6 +3,8 @@ title: "Life Expectancy by Year"
 author: "Mu-Wei Chung"
 date: "`r Sys.Date()`"
 output: html_document
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
@@ -195,57 +197,6 @@ p5 <- le_dev_opt$`Small Island Developing States (SIDS)` %>%
 # display plots side by side
 gridExtra::grid.arrange(p1, p2, p3, p4, p5, ncol = 2)
 ```
-
-
-### Create a function to plot with combined data
-
-```{r}
-plot_forecast <- function(forecast_object, historical_data) {
-  # Get forecasted data as a data frame
-  forecast_data <- as.data.frame(forecast(forecast_object, h = 5))
-  forecast_time <- seq(max(time(historical_data)) + 1, by = 1, length.out = nrow(forecast_data))
-  
-  # Combine historical and forecasted data
-  combined_data <- data.frame(
-    Time = c(time(historical_data), forecast_time),
-    Value = c(as.numeric(historical_data), forecast_data$`Point Forecast`),
-    Type = rep(c("Historical", "Forecast"), times = c(length(historical_data), nrow(forecast_data)))
-  )
-  
-  # Create data frame for the ribbon layer
-  ribbon_data <- data.frame(
-    Time = forecast_time,
-    ymin = forecast_data$`Lo 80`,
-    ymax = forecast_data$`Hi 80`
-  )
-  
-  # Plot the combined data
-  ggplot(combined_data, aes(x = Time, y = Value, color = Type)) +
-    geom_line() +
-    geom_ribbon(data = ribbon_data, aes(x = Time, ymin = ymin, ymax = ymax), fill = "blue", alpha = 0.2) +
-    labs(title = deparse(substitute(forecast_object)), y = "Life Expectancy", x = "Time") +
-    theme_minimal()
-}
-```
-
-### Generate and display the plots
-
-```{r}
-library(gridExtra)
-library(ggplot2)
-
-p1 <- plot_forecast(le_dev_opt$`Least developed countries`, le_dev_ls$`Least developed countries`)
-p2 <- plot_forecast(le_dev_opt$`More developed regions`, le_dev_ls$`More developed regions`)
-p3 <- plot_forecast(le_dev_opt$`Less developed regions, excluding least developed countries`, le_dev_ls$`Less developed regions, excluding least developed countries`)
-p4 <- plot_forecast(le_dev_opt$`Land-locked Developing Countries (LLDC)`, le_dev_ls$`Land-locked Developing Countries (LLDC)`)
-p5 <- plot_forecast(le_dev_opt$`Small Island Developing States (SIDS)`, le_dev_ls$`Small Island Developing States (SIDS)`)
-
-# display plots side by side
-gridExtra::grid.arrange(p1, p2, p3, p4, p5, ncol = 2)
-```
-
-This modified code creates a function `plot_forecast` that combines the historical and forecasted data for smoother transitions. The historical data and forecasted data are then plotted together, ensuring continuity between the two. This should eliminate the visual disconnect you observed.
-
 
 
 
