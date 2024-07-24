@@ -98,6 +98,22 @@ p <- le_clean %>%
 vaccination_df <- read_csv("data/global-vaccination-coverage.csv")
 vaccination_df %>% glimpse()
 vaccination_clean <- janitor::clean_names(vaccination_df)
+colnames(vaccination_clean) = c(
+  "entity",
+  "code",
+  "year",
+  "BCG (TB)",
+  "Hep B",
+  "H. Inf. B",
+  "Salk (Polio)",
+  "Meningococcal",
+  "Pneumococcal",
+  "Polio",
+  "Rubella",
+  "Rotavirus",
+  "Yellow Fever",
+  "Diptheria, Pertussis, Tetanus"
+)
 
 vaccination_long <- vaccination_clean %>% 
   pivot_longer(cols = -c(entity, code, year), 
@@ -118,7 +134,8 @@ p_vac <- vaccination_long %>%
 ggplotly(p_vac)
 
 library(gganimate)
-suppressWarnings(animate(p_vac+transition_time(year)))
+animation = suppressMessages(suppressWarnings(animate(p_vac+transition_time(year))))
+anim_save("Bouncing.gif",animation)
 
 library(magick)
 
@@ -442,7 +459,9 @@ png_files %>%
 
 
 
-
+ggplot() +
+  geom_line(data=subset(le_clean, entity=="Afghanistan"), aes(x=year, y=life_expectancy)) +
+  geom_line(data=subset(vaccination_clean, entity=="Afghanistan"), aes(x=year, y=coverage))
 
 
 
