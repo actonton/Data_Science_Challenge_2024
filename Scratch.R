@@ -464,4 +464,8 @@ ggplot() +
   geom_line(data=subset(vaccination_clean, entity=="Afghanistan"), aes(x=year, y=coverage))
 
 
+merged_datasets = merge(vaccination_clean, le_clean, by=c("entity","year"))
+
+
+linear_model = lm(le_clean$life_expectancy ~ vaccination_clean$'BCG (TB)')
 
