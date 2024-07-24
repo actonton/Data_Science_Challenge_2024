@@ -112,10 +112,39 @@ Using a combination of Pearson's correlation coefficient and linear regression, 
 ```{r}
 
 merged_datasets = merge(vaccination_clean, le_clean, by=c("entity","year"))
-names(merged_datasets)[names(merged_datasets) == 'period_life_expectancy_at_birth_sex_all_age_0'] <- 'life_expectancy'
+names(merged_datasets)[names(merged_datasets) == 'period_life_expect'] <- 'life_expectancy'
 
 ```
 
+```{r}
+#| warning: false
+#| message: false
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=ipv1_percent_of_one_year_olds_immunized, y=life_expectancy, color=year)) +
+  theme_bw() +
+  labs(title="Salk (Polio) 1st Dose") + xlab("% 1yos vaccinated") + ylab("Life Expectancy")
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=mcv1_percent_of_one_year_olds_immunized, y=life_expectancy, color=year)) +
+  theme_bw() +
+  labs(title="Meningococcal 1st Dose") + xlab("% 1yos vaccinated") + ylab("Life Expectancy")
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=pol3_percent_of_one_year_olds_immunized, y=life_expectancy, color=year)) +
+  theme_bw() +
+  labs(title="Polio 3rd Dose") + xlab("% 1yos vaccinated") + ylab("Life Expectancy")
+
+ggplot(data=merged_datasets) +
+  geom_point(aes(
+    x=dtp3_percent_of_one_year_olds_immunized, y=life_expectancy, color=year)) +
+  theme_bw() +
+  labs(title="Diphtheria 3rd Dose") + xlab("% 1yos vaccinated") + ylab("Life Expectancy")
+
+```
 
 :::
 
