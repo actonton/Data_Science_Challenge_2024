@@ -262,7 +262,7 @@ ggplotly(p_vac)
 We focus on the 5 vaccines with coverage rate data since 1980.
 - BCG: Tuberculosis
 - DTP3: Diphtheria/Tetanus/Pertussis
-- MCV1: Measles, first dose
+- MCV1: Meningococcal, first dose
 - POL3: Polio
 - RCV1: Rubella
 
