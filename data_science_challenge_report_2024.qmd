@@ -56,13 +56,21 @@ library(rmarkdown)
 ```
 
 ::: panel-tabset
-# Executive Summary
-
-Text here
-
 # Background
 
-This report investigates the impacts of vaccinations amongst the different development regions as we dived into the difference of life expectancy and the global coverage of the vaccination programs. We used a dataset from [OWID](https://ourworldindata.org/) (Our World In Data) for vaccination coverage and global life expectancy. We analysed the trend of the vaccination programs in different regions to deduce the impact of the vaccines and potential life expectancy gains.
+This report investigates the impacts of vaccinations amongst the different development regions as we dived into the difference of life expectancy and the global coverage of the vaccination programs. Overall, it aims to act as a resource for NGOs in prioritising what vaccines to distribute, and where, to best increase life expectancy. We used a dataset from OWID (Our World In Data) for vaccination coverage and global life expectancy.  We analysed the trend of the vaccination programs in different regions to deduce the impact of the vaccines and potential life expectancy gains from 1980 to 2021.
+
+We have split up our findings in 2 sections:
+
+
+- **Impact of Vaccines**: looks into how the different vaccines on different diseases perform in prevention and increasing the global life expectancy.
+
+
+
+- **Modelling and Predicting future life expectancy**: looks into the different trends and future projections of life expectancy based on the global vaccination coverage.
+
+We leveraged different methods such as Pearson’s correlation coefficient and linear regression to find the impacts of different vaccinations, and ARIMA, difference of time periods, and ACF and PACF plots to analyse the trends of the time series data on how life expectancy based on the global vaccination coverage. 
+
 
 # Data
 
@@ -245,3 +253,11 @@ p3
 :::
 
 # References
+
+Dattani, S., Rodés-Guirao, L., Ritchie, H., Ortiz-Ospina, E., & Roser, M. (2023). Life Expectancy. Our World in Data.  Retrieved 22 July 2024, from (https://ourworldindata.org/life-expectancy)  
+
+Immunization coverage. (n.d.). Retrieved 22 July 2024, from (https://www.who.int/news-room/fact-sheets/detail/immunization-coverage)   
+
+WHO, & UNICEF. (n.d.). Vaccination Coverage. Prepared by Our World in Data.  Retrieved 22 July 2024, from (https://ourworldindata.org/grapher/global-vaccination-coverage) 
+
+Roser, M. (2023). The rise of maximum life expectancy, Our World in Data.  Retrieved 22 July 2024, from (https://ourworldindata.org/the-rise-of-maximum-life-expectancy) 
