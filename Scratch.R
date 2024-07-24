@@ -134,7 +134,7 @@ world_map$region[world_map$region == "Trinidad"] <- "Trinidad and Tobago"
 
 #BCG
 
-i = 1980
+i = 1970
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -143,10 +143,10 @@ while (i <= max(as.numeric(vaccination_clean$year))) {
     scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
                         limits = c(0, 100)) +
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
-    labs(subtitle="% 1 Year Olds Immunised with BCG (Against TB)") +
+    labs(subtitle="% 1 yos Immunised with BCG (Against TB)") +
     theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
   filename = paste("plotsVaxBCG/",toString(i),".png",sep="")
-  ggsave(filename,p)
+  ggsave(filename,p,dpi=150,height=450,width=800,units="px")
   i = i+1
 }
 png_files <- list.files("plotsVaxBCG",
@@ -162,7 +162,7 @@ png_files %>%
 
 #HEP
 
-i = 1980
+i = 1970
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -171,10 +171,10 @@ while (i <= max(as.numeric(vaccination_clean$year))) {
     scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
                         limits = c(0, 100)) +
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
-    labs(subtitle="% 1 Year Olds Immunised against Hepatitis B3") +
+    labs(subtitle="% 1 yos Immunised against Hepatitis B3") +
     theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
   filename = paste("plotsVaxHEP/",toString(i),".png",sep="")
-  ggsave(filename,p)
+  ggsave(filename,p,dpi=150,height=450,width=800,units="px")
   i = i+1
 }
 png_files <- list.files("plotsVaxHEP",
@@ -190,7 +190,7 @@ png_files %>%
 
 #HIB
 
-i = 1980
+i = 1970
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -199,10 +199,10 @@ while (i <= max(as.numeric(vaccination_clean$year))) {
     scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
                         limits = c(0, 100)) +
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
-    labs(subtitle="% 1 Year Olds Immunised with Haemophilus Influenza B") +
+    labs(subtitle="% 1 yos Immunised with Haemophilus Influenza B") +
     theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
   filename = paste("plotsVaxHIB/",toString(i),".png",sep="")
-  ggsave(filename,p)
+  ggsave(filename,p,dpi=150,height=450,width=800,units="px")
   i = i+1
 }
 png_files <- list.files("plotsVaxHIB",
@@ -218,7 +218,7 @@ png_files %>%
 
 #IPV
 
-i = 1980
+i = 1970
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -227,10 +227,10 @@ while (i <= max(as.numeric(vaccination_clean$year))) {
     scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
                         limits = c(0, 100)) +
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
-    labs(subtitle="% 1 Year Olds Immunised with Salk (against Polio)") +
+    labs(subtitle="% 1 yos Immunised with Salk (against Polio)") +
     theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
   filename = paste("plotsVaxIPV/",toString(i),".png",sep="")
-  ggsave(filename,p)
+  ggsave(filename,p,dpi=150,height=450,width=800,units="px")
   i = i+1
 }
 png_files <- list.files("plotsVaxIPV",
@@ -246,7 +246,7 @@ png_files %>%
 
 #MCV
 
-i = 1980
+i = 1970
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -255,10 +255,10 @@ while (i <= max(as.numeric(vaccination_clean$year))) {
     scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
                         limits = c(0, 100)) +
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
-    labs(subtitle="% 1 Year Olds Immunised with against Meningococcal") +
+    labs(subtitle="% 1 yos Immunised with against Meningococcal") +
     theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
   filename = paste("plotsVaxMCV/",toString(i),".png",sep="")
-  ggsave(filename,p)
+  ggsave(filename,p,dpi=150,height=450,width=800,units="px")
   i = i+1
 }
 png_files <- list.files("plotsVaxMCV",
@@ -274,7 +274,7 @@ png_files %>%
 
 #PCV
 
-i = 1980
+i = 1970
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -283,10 +283,10 @@ while (i <= max(as.numeric(vaccination_clean$year))) {
     scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
                         limits = c(0, 100)) +
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
-    labs(subtitle="% 1 Year Olds Immunised against Pneumococcal") +
+    labs(subtitle="% 1 yos Immunised against Pneumococcal") +
     theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
   filename = paste("plotsVaxPCV/",toString(i),".png",sep="")
-  ggsave(filename,p)
+  ggsave(filename,p,dpi=150,height=450,width=800,units="px")
   i = i+1
 }
 png_files <- list.files("plotsVaxPCV",
@@ -302,7 +302,7 @@ png_files %>%
 
 #POL
 
-i = 1980
+i = 1970
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -311,10 +311,10 @@ while (i <= max(as.numeric(vaccination_clean$year))) {
     scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
                         limits = c(0, 100)) +
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
-    labs(subtitle="% 1 Year Olds Immunised against Polio") +
+    labs(subtitle="% 1 yos Immunised against Polio") +
     theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
   filename = paste("plotsVaxPOL/",toString(i),".png",sep="")
-  ggsave(filename,p)
+  ggsave(filename,p,dpi=150,height=450,width=800,units="px")
   i = i+1
 }
 png_files <- list.files("plotsVaxPOL",
@@ -330,7 +330,7 @@ png_files %>%
 
 #RCV
 
-i = 1980
+i = 1970
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -339,10 +339,10 @@ while (i <= max(as.numeric(vaccination_clean$year))) {
     scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
                         limits = c(0, 100)) +
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
-    labs(subtitle="% 1 Year Olds Immunised with against Rubella") +
+    labs(subtitle="% 1 yos Immunised with against Rubella") +
     theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
   filename = paste("plotsVaxRCV/",toString(i),".png",sep="")
-  ggsave(filename,p)
+  ggsave(filename,p,dpi=150,height=450,width=800,units="px")
   i = i+1
 }
 png_files <- list.files("plotsVaxRCV",
@@ -358,7 +358,7 @@ png_files %>%
 
 #ROTA
 
-i = 1980
+i = 1970
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -367,10 +367,10 @@ while (i <= max(as.numeric(vaccination_clean$year))) {
     scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
                         limits = c(0, 100)) +
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
-    labs(subtitle="% 1 Year Olds Immunised against Rotavirus") +
+    labs(subtitle="% 1 yos Immunised against Rotavirus") +
     theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
   filename = paste("plotsVaxROTA/",toString(i),".png",sep="")
-  ggsave(filename,p)
+  ggsave(filename,p,dpi=150,height=450,width=800,units="px")
   i = i+1
 }
 png_files <- list.files("plotsVaxROTA",
@@ -386,7 +386,7 @@ png_files %>%
 
 #YTV
 
-i = 1980
+i = 1970
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -395,10 +395,10 @@ while (i <= max(as.numeric(vaccination_clean$year))) {
     scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
                         limits = c(0, 100)) +
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
-    labs(subtitle="% 1 Year Olds Immunised against Yellow Fever") +
+    labs(subtitle="% 1 yos Immunised against Yellow Fever") +
     theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
   filename = paste("plotsVaxYFV/",toString(i),".png",sep="")
-  ggsave(filename,p)
+  ggsave(filename,p,dpi=150,height=450,width=800,units="px")
   i = i+1
 }
 png_files <- list.files("plotsVaxYFV",
@@ -414,7 +414,7 @@ png_files %>%
 
 #DTP
 
-i = 1980
+i = 1970
 while (i <= max(as.numeric(vaccination_clean$year))) {
   p = ggplot() +
     geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
@@ -423,10 +423,10 @@ while (i <= max(as.numeric(vaccination_clean$year))) {
     scale_fill_gradient(low = "#fe7c7c", high = "#bbeebb", name = "% Immunised",
                         limits = c(0, 100)) +
     theme_void() + coord_fixed(1.2) + ggtitle(toString(i)) +
-    labs(subtitle="% 1 Year Olds Immunised with DTP (against Diphtheria, Pertussis, Tetanus)") +
+    labs(subtitle="% 1 yos Immunised against Diphtheria, Pertussis, Tetanus") +
     theme(plot.title=element_text(hjust=0.5),plot.subtitle=element_text(hjust=0.5))
   filename = paste("plotsVaxDTP/",toString(i),".png",sep="")
-  ggsave(filename,p)
+  ggsave(filename,p,dpi=150,height=450,width=800,units="px")
   i = i+1
 }
 png_files <- list.files("plotsVaxDTP",
