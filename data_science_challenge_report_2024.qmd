@@ -1,29 +1,88 @@
 ---
 title: "![](imgs/Winter_Data_Science_Challenge_2024_banner.png)"
-author: "Aldwin Arambulo (SID 510575452), Mia Childers (SID 510414892), Mu-Wei Chung (SID 510611635)"
+author: "Aldwin Arambulo (SID 510575452) | Mia Childers (SID 510414892) | Mu-Wei Chung (SID 510611635)"
+date: "`r Sys.Date()`"
 format: 
   html: 
-    self-contained: true 
     fig-cap-location: bottom
     page-layout: full
-    code-fold: false 
-    code-tools: true 
-    code-line-numbers: true 
-    df-print: paged 
-    theme: superhero 
+    toc: false
+    theme: superhero
+    anchor-sections: true
+    code-tools: true
+    code-fold: true
+    source: true
+    code-copy: hover
+    df-print: paged
+    smooth-scroll: true
+    html-math-method: katex
+    self-contained: true
+    self-contained-math: true
+    code-link: true
 table-of-contents: false 
+execute:
+  warning: false
+editor_options: 
+  chunk_output_type: inline
 ---
+
+################################################
+
+<style>
+body {
+  font-size: 14px;
+}
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+h2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+h3 {
+  font-size: 16px;
+}
+}
+</style>
+
+################################################
+
+```{r setup}
+#| warning: false
+#| message: false
+library(tidyverse)
+library(ggplot2)
+```
 
 ::: panel-tabset
 
 # Executive Summary
 
+Text here
+
+
+
 # Background
+
+Text here
+
+
 
 # Data
 
-# Vaccine Impact
+Text here
+
+
+
+# Impact of vacccination
+
+Text here
+
+
 
 :::
 
 # References
+
+
