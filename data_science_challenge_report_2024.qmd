@@ -50,6 +50,8 @@ h3 {
 #| message: false
 library(tidyverse)
 library(ggplot2)
+library(plotly)
+library(rmarkdown)
 ```
 
 ::: panel-tabset
@@ -68,6 +70,38 @@ This report investigates the impacts of vaccinations amongst the different devel
 
 # Data
 
+## Life Expectancy Data
+
+[Life Expectancy](https://ourworldindata.org/life-expectancy#all-charts) dataset from Our World in Data.
+
+```{r}
+le_df <- read_csv("data/life-expectancy.csv")
+paged_table(le_df)
+```
+
+### Cleaning life expectancy data
+
+```{r}
+le_clean <- janitor::clean_names(le_df)
+# rename column
+le_clean <- le_clean %>% 
+  rename(period_life_expect = period_life_expectancy_at_birth_sex_all_age_0)
+paged_table(le_clean)
+```
+
+## Global Vaccination Coverage Data
+
+```{r}
+vaccination_df <- read_csv("data/global-vaccination-coverage.csv")
+vaccination_df %>% paged_table()
+```
+
+### Cleaning vaccination data
+
+```{r}
+vaccination_clean <- janitor::clean_names(vaccination_df) %>% paged_table()
+vaccination_clean
+```
 
 
 
