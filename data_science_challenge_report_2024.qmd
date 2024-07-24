@@ -1,5 +1,5 @@
 ---
-title: "![](imgs/Winter_Data_Science_Challenge_2024_banner.png)"
+title: "![OWID Vaccine Data](imgs/Winter_Data_Science_Challenge_2024_banner.png)"
 author: "Aldwin Arambulo (SID 510575452) | Mia Childers (SID 510414892) | Mu-Wei Chung (SID 510611635)"
 date: "`r Sys.Date()`"
 format: 
@@ -107,8 +107,14 @@ vaccination_clean
 
 # Impact of vacccination
 
-Text here
+Using a combination of Pearson's correlation coefficient and linear regression, the vaccines for one dose of Salk's polio vaccine, one dose of the meningococcal vaccine, three doses of the polio vaccine and three doses of the DPT (diphtheria, pertussis, tetanus) vaccine were found to be the most significant in increasing life expectancy globally.
 
+```{r}
+
+merged_datasets = merge(vaccination_clean, le_clean, by=c("entity","year"))
+names(merged_datasets)[names(merged_datasets) == 'period_life_expectancy_at_birth_sex_all_age_0'] <- 'life_expectancy'
+
+```
 
 
 :::
