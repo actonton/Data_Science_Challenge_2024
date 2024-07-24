@@ -35,7 +35,7 @@ png_files <- list.files("plotsLE",
 png_files %>%
   map(image_read) %>% # reads each path file
   image_join() %>% # joins image
-  image_animate(fps = 5) %>% # animates
+  image_animate(fps = 2) %>% # animates
   image_write("LE.gif")
 
 'ggplot() +

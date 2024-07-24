@@ -174,7 +174,7 @@ png_files <- list.files("plotsVaxBCG",
 png_files %>%
   map(image_read) %>%
   image_join() %>%
-  image_animate(fps = 5) %>%
+  image_animate(fps = 2) %>%
   image_write("BCG.gif")
 
 #HEP
@@ -202,7 +202,7 @@ png_files <- list.files("plotsVaxHEP",
 png_files %>%
   map(image_read) %>%
   image_join() %>%
-  image_animate(fps = 5) %>%
+  image_animate(fps = 2) %>%
   image_write("HEP.gif")
 
 #HIB
@@ -230,7 +230,7 @@ png_files <- list.files("plotsVaxHIB",
 png_files %>%
   map(image_read) %>%
   image_join() %>%
-  image_animate(fps = 5) %>%
+  image_animate(fps = 2) %>%
   image_write("HIB.gif")
 
 #IPV
@@ -258,7 +258,7 @@ png_files <- list.files("plotsVaxIPV",
 png_files %>%
   map(image_read) %>%
   image_join() %>%
-  image_animate(fps = 5) %>%
+  image_animate(fps = 2) %>%
   image_write("IPV.gif")
 
 #MCV
@@ -286,7 +286,7 @@ png_files <- list.files("plotsVaxMCV",
 png_files %>%
   map(image_read) %>%
   image_join() %>%
-  image_animate(fps = 5) %>%
+  image_animate(fps = 2) %>%
   image_write("MCV.gif")
 
 #PCV
@@ -314,7 +314,7 @@ png_files <- list.files("plotsVaxPCV",
 png_files %>%
   map(image_read) %>%
   image_join() %>%
-  image_animate(fps = 5) %>%
+  image_animate(fps = 2) %>%
   image_write("PCV.gif")
 
 #POL
@@ -342,7 +342,7 @@ png_files <- list.files("plotsVaxPOL",
 png_files %>%
   map(image_read) %>%
   image_join() %>%
-  image_animate(fps = 5) %>%
+  image_animate(fps = 2) %>%
   image_write("POL.gif")
 
 #RCV
@@ -370,7 +370,7 @@ png_files <- list.files("plotsVaxRCV",
 png_files %>%
   map(image_read) %>%
   image_join() %>%
-  image_animate(fps = 5) %>%
+  image_animate(fps = 2) %>%
   image_write("RCV.gif")
 
 #ROTA
@@ -398,7 +398,7 @@ png_files <- list.files("plotsVaxROTA",
 png_files %>%
   map(image_read) %>%
   image_join() %>%
-  image_animate(fps = 5) %>%
+  image_animate(fps = 2) %>%
   image_write("ROTA.gif")
 
 #YTV
@@ -426,7 +426,7 @@ png_files <- list.files("plotsVaxYFV",
 png_files %>%
   map(image_read) %>%
   image_join() %>%
-  image_animate(fps = 5) %>%
+  image_animate(fps = 2) %>%
   image_write("YFV.gif")
 
 #DTP
@@ -454,7 +454,7 @@ png_files <- list.files("plotsVaxDTP",
 png_files %>%
   map(image_read) %>%
   image_join() %>%
-  image_animate(fps = 5) %>%
+  image_animate(fps = 2) %>%
   image_write("DTP.gif")
 
 
