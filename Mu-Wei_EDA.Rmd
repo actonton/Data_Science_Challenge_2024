@@ -27,11 +27,14 @@ glimpse(le_df)
 
 ```{r}
 le_clean <- janitor::clean_names(le_df)
+# rename column
+le_clean <- le_clean %>% 
+  rename(period_life_expect = period_life_expectancy_at_birth_sex_all_age_0)
 glimpse(le_clean)
 ```
 ## Entity
 
-It include countries, continents, world, development status
+It include countries, continents, world, groups of different development status and income levels.
 
 ```{r}
 le_clean %>% pull(entity) %>% unique()
@@ -59,7 +62,7 @@ le_clean %>%
 ```{r}
 p <- le_clean %>% 
   filter(entity == "World") %>% 
-  ggplot(aes(x = year, y = period_life_expectancy_at_birth_sex_all_age_0)) +
+  ggplot(aes(x = year, y = period_life_expect)) +
   geom_line() +
   labs(title = "World Life Expectancy by Year",
        x = "Year",
@@ -67,15 +70,15 @@ p <- le_clean %>%
 ggplotly(p)
 ```
 
-## Split by development status
+## Looking into different development status regions
 
 ```{r}
-development_status <- stringr::str_subset(le_clean$entity, "devel") %>% unique()
+development_status <- stringr::str_subset(le_clean$entity, regex("devel", ignore_case = TRUE)) %>% unique()
 
 p <- le_clean %>%
   filter(entity %in% development_status) %>%
   ggplot(aes(x = year, 
-             y = period_life_expectancy_at_birth_sex_all_age_0,
+             y = period_life_expect,
              color = entity)) +
   geom_line() + 
   labs(title = "Life Expectancy by Year",
@@ -84,7 +87,7 @@ p <- le_clean %>%
 ggplotly(p)
 ```
 
-How many countries have data before 1950?
+How many countries have data before 1950? 
 
 ```{r}
 le_clean %>% drop_na(code) %>%
@@ -93,6 +96,8 @@ le_clean %>% drop_na(code) %>%
   unique() %>% 
   length()
 ```
+
+Only 87 of 238 countries have data before 1950.
 
 ```{r}
 le_clean %>% drop_na(code) %>%
@@ -105,6 +110,8 @@ le_clean %>% drop_na(code) %>%
   length()
   
 ```
+
+237 of 238 countries have data every year since 1950.
 
 ```{r}
 le_clean %>% drop_na(code) %>%
@@ -121,7 +128,7 @@ Create a new column that calculates the difference in life expectancy from the p
 ```{r}
 le_clean <- le_clean %>% 
   group_by(entity) %>% 
-  mutate(diff = c(NA, diff(period_life_expectancy_at_birth_sex_all_age_0))) %>%
+  mutate(diff = c(NA, diff(period_life_expect))) %>%
   ungroup()
 ```
 
@@ -138,6 +145,67 @@ p <- le_clean %>%
        x = "Year",
        y = "Life Expectancy at Birth (years)")
 ggplotly(p)
+```
+
+# Time Series Analysis
+
+## Convert dataframes to time series
+
+```{r}
+# create a list of 3 dataframes
+le_dev_ls <- list()
+for (dev in development_status) {
+  le_dev_ls[[dev]] <- le_clean %>% 
+    filter(entity == dev) %>%
+    select(period_life_expect) %>%
+    ts(start = 1950, end = 2021)
+}
+le_dev_ls
+```
+
+## Fit best ARIMA model
+
+```{r}
+# install.packages("forecast")
+library(forecast)
+le_dev_opt <- list()
+for (dev in development_status) {
+  le_dev_opt[[dev]] <- auto.arima(le_dev_ls[[dev]])
+}
+```
+
+
+```{r}
+p1 <- le_dev_opt$`Least developed countries` %>% 
+  forecast(h = 5) %>% 
+  autoplot()
+p2 <- le_dev_opt$`More developed regions` %>%
+  forecast(h = 5) %>% 
+  autoplot()
+p3 <- le_dev_opt$`Less developed regions, excluding least developed countries` %>%
+  forecast(h = 5) %>% 
+  autoplot()
+p4 <- le_dev_opt$`Land-locked Developing Countries (LLDC)` %>%
+  forecast(h = 5) %>% 
+  autoplot()
+p5 <- le_dev_opt$`Small Island Developing States (SIDS)` %>%
+  forecast(h = 5) %>% 
+  autoplot()
+
+# display plots side by side
+gridExtra::grid.arrange(p1, p2, p3, p4, p5, ncol = 2)
+```
+
+
+
+## ADF test
+
+```{r}
+library(tseries)
+le_dev <- le_clean %>%
+  filter(entity %in% development_status) %>% 
+  select(entity, year, diff) %>% drop_na()
+adf.test(le_dev %>% filter(entity == "More developed regions") %>% pull(diff))
 ```
 
 
